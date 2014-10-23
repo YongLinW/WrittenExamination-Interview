@@ -15,26 +15,54 @@ package cn.campusRecruitment2014.Netease.MaximumSubarray;
 public class MaximumSubarray {
 
 	public static void main(String[] args) {
-
+		int[] data = {31,-41,59,26,-53,58,97,-93,-23,84};
+		maxSubarray(data, data.length);
 	}
 
-	public void maximumSubarray(int[] array, int len) {
-		int start, end, max = 0, curSum = 0;
-		boolean ifS = false;
-		for (int i = 0; i < len; i++) {
-			if (array[i] > 0) {
-				ifS = true;
+	public static void maxSubarray(int[] data, int length) {
+		int start = 0, end = 0, max = 0, curSum = 0;
+		boolean ifS = false, mayContain = false;
+		for (int i = 0; i < length; i++) {
+			/**
+			 * 找到第一个元素 > 0 的位置，设置当前值为最大值以及当前和
+			 */
+			if (ifS == false && data[i] > 0) {
+				ifS = mayContain = true;
+				max = curSum = data[i];
 				start = end = i;
-				max = array[i];
-				curSum = array[i];
-			} else if (ifS == true && array[i] < 0) {
-				if (curSum + array[i] > 0) {
-					curSum = curSum + array[i];
+			}
+			/**
+			 * 找到第一个 > 0的元素之后
+			 */
+			else {
+				if (mayContain == true && data[i] < 0) {
+					if (data[i] + curSum >= 0) {
+						curSum += data[i];
+						mayContain = true;
+					} else if (data[i] + curSum < 0) {
+						mayContain = false;	
+					}
+				} else if (mayContain == true && data[i] > 0) {
+					curSum += data[i];
+					mayContain = true;
+					if(curSum > max){
+						max = curSum;
+						end = i;
+					}
+				} else if (mayContain == false && data[i] < 0) {
+					mayContain = false;
+				} else if (mayContain == false && data[i] > 0) {
+					if (data[i] >= max) {
+						max = curSum = data[i];
+						mayContain = true;
+						start = end = i;
+					} else if (data[i] < max) {
+						curSum = data[i];
+						mayContain = true;
+					}
 				}
-			} else if (ifS == true && array[i] > 0) {
-				max = max + array[i];
-				end = i;
 			}
 		}
+		System.out.println("Max subarray = " + max + "; Position from " + start + " to " + end);
 	}
 }
