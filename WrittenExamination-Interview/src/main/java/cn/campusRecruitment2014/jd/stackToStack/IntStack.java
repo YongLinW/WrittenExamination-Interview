@@ -80,4 +80,13 @@ public class IntStack {
 		return result;
 	}
 
+	public int peek(){
+		int result = 0;
+		if(isEmpty()){
+			
+		}else{
+			result = contents[top - 1];
+		}
+		return result;
+	}
 }

@@ -36,7 +36,7 @@ public class StackToStack {
 		int count = 0;
 		while(stack.isEmpty() == false){
 			int v = stack.pop();
-			/////////////////////////
+			
 		}
 		return result;
 	}
