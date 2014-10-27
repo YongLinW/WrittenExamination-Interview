@@ -15,8 +15,8 @@ package cn.campusRecruitment2014.jd.stackToStack;
 public class StackToStack {
 
 	public static void main(String[] args) {
-		IntStack AStack = new IntStack();
-		IntStack BStack = new IntStack();
+		Stack AStack = new Stack();
+		Stack BStack = new Stack();
 
 		AStack.push(2);
 		AStack.push(4);
@@ -24,19 +24,31 @@ public class StackToStack {
 		AStack.push(5);
 		AStack.push(3);
 		AStack.push(6);
-
+		AStack.push(-1);
+		AStack.push(7);
+		
 		StackToStack stackToStack = new StackToStack();
 		BStack = stackToStack.orderlyConvert(AStack);
-		
+
+		System.out.println("从栈顶至栈底元素(由小到大)分别是：");
+		while(BStack.isEmpty() == false){
+			System.out.println(((Integer)BStack.pop()).intValue());
+		}
 	}
-	
-	public IntStack orderlyConvert(IntStack stack){
-		IntStack result = new IntStack(stack.size());
-		
-		int count = 0;
-		while(stack.isEmpty() == false){
-			int v = stack.pop();
-			
+
+	public Stack orderlyConvert(Stack stack) {
+		Stack result = new Stack(stack.size());
+		while (stack.isEmpty() == false) {
+			int count = 0;
+			int v = (Integer) stack.pop();
+			while (result.isEmpty() != true && (Integer) result.peek() < v ) {
+				stack.push(result.pop());
+				count++;
+			}
+			result.push(v);
+			for (int i = 0; i < count; i++) {
+				result.push(stack.pop());
+			}
 		}
 		return result;
 	}

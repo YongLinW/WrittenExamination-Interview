@@ -1,11 +1,11 @@
 package cn.campusRecruitment2014.jd.stackToStack;
 
-public class IntStack {
+public class Stack {
 
 	/**
 	 * 保存数值
 	 */
-	private int[] contents;
+	private Object[] contents;
 
 	/**
 	 * 标记下一个入栈的位置，同时表示栈的容量大小
@@ -14,13 +14,13 @@ public class IntStack {
 
 	private int DEFAULT_CAPACITY = 10;
 
-	public IntStack() {
-		contents = new int[DEFAULT_CAPACITY];
+	public Stack() {
+		contents = new Object[DEFAULT_CAPACITY];
 		top = 0;
 	}
 
-	public IntStack(int size) {
-		contents = new int[size];
+	public Stack(int size) {
+		contents = new Object[size];
 		top = 0;
 	}
 
@@ -46,7 +46,7 @@ public class IntStack {
 	 * 扩充容量大小
 	 */
 	public void expand() {
-		int[] large = new int[size() * 2];
+		Object[] large = new Object[size() * 2];
 		for (int index = 0; index < size(); index++) {
 			large[index] = contents[index];
 		}
@@ -58,7 +58,7 @@ public class IntStack {
 	 * 
 	 * @param value
 	 */
-	public void push(int value) {
+	public void push(Object value) {
 		if (size() == contents.length) {
 			expand();
 		}
@@ -71,17 +71,21 @@ public class IntStack {
 	 * 
 	 * @return
 	 */
-	public int pop() {
+	public Object pop() {
 		if(isEmpty()){
 			System.err.println("stack is empty!");
 		}
-		int result = contents[top - 1];
+		Object result = contents[top - 1];
 		top --;
 		return result;
 	}
 
-	public int peek(){
-		int result = 0;
+	/**
+	 * 获取栈顶元素
+	 * @return
+	 */
+	public Object peek(){
+		Object result = null;
 		if(isEmpty()){
 			
 		}else{
